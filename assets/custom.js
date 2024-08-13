@@ -1,3 +1,5 @@
+document.addEventListener('DOMContentLoaded', function() {
+
 class CustomCardGallery extends HTMLElement {
     constructor() {
       super();
@@ -12,11 +14,12 @@ class CustomCardGallery extends HTMLElement {
       var flkty = new Flickity(this.querySelector('.product_card_carousel'), {
           wrapAround: true,
           autoPlay: true,
-          pageDots: true
+          pageDots: true,
+          prevNextButtons: false 
       });
     }
   }
   
   // Define the custom element
   customElements.define('custom-card-gallery', CustomCardGallery);
-  
+})

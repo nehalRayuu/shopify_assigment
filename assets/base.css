@@ -3635,3 +3635,19 @@ h2#verticalTitle {
   width: 100%;
   height: auto;
 }
+.product_card_carousel .flickity-page-dots {
+  bottom:12%;
+}
+.product_card_carousel .flickity-page-dots .dot.is-selected {
+
+  opacity: 1;
+  width: 15%;
+  border-radius: 10px;
+  background: #FFFFFF;
+ 
+
+}
+.product_card_carousel .flickity-page-dots .dot {
+  opacity: 1;
+  background: #FFFFFF;
+}
