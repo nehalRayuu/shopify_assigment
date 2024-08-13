@@ -28,6 +28,10 @@
   {{ 'quick-order-list.css' | asset_url | stylesheet_tag }}
   {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {%- endunless -%}
+<script src="{{ 'flickity.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'custom.js' | asset_url }}" defer="defer"></script>
+{{ 'flickity.css' | asset_url | stylesheet_tag }}
+
 {%- if card_product and card_product != empty -%}
   {%- liquid
     assign ratio = 1
@@ -57,54 +61,25 @@
         class="card__inner {% if settings.card_style == 'standard' %}color-{{ settings.card_color_scheme }} gradient{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} ratio{% endif %}"
         style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
       >
-        {%- if card_product.featured_media -%}
-          <div class="card__media{% if image_shape and image_shape != 'default' %} shape--{{ image_shape }} color-{{ settings.card_color_scheme }} gradient{% endif %}">
-            <div class="media media--transparent media--hover-effect">
-              {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-              <img
-                srcset="
-                  {%- if card_product.featured_media.width >= 165 -%}{{ card_product.featured_media | image_url: width: 165 }} 165w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 360 -%}{{ card_product.featured_media | image_url: width: 360 }} 360w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 533 -%}{{ card_product.featured_media | image_url: width: 533 }} 533w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 720 -%}{{ card_product.featured_media | image_url: width: 720 }} 720w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 940 -%}{{ card_product.featured_media | image_url: width: 940 }} 940w,{%- endif -%}
-                  {%- if card_product.featured_media.width >= 1066 -%}{{ card_product.featured_media | image_url: width: 1066 }} 1066w,{%- endif -%}
-                  {{ card_product.featured_media | image_url }} {{ card_product.featured_media.width }}w
-                "
-                src="{{ card_product.featured_media | image_url: width: 533 }}"
-                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                alt="{{ card_product.featured_media.alt | escape }}"
-                class="motion-reduce"
-                {% unless lazy_load == false %}
-                  loading="lazy"
-                {% endunless %}
-                width="{{ card_product.featured_media.width }}"
-                height="{{ card_product.featured_media.height }}"
-              >
-              {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
-
-              {%- if card_product.media[1] != null and show_secondary_image -%}
+      {%- if card_product.featured_media -%}
+        <custom-card-gallery>
+          <div class="product_card_carousel">
+            {% for media in card_product.media %}
+              <div class="card_images">
                 <img
-                  srcset="
-                    {%- if card_product.media[1].width >= 165 -%}{{ card_product.media[1] | image_url: width: 165 }} 165w,{%- endif -%}
-                    {%- if card_product.media[1].width >= 360 -%}{{ card_product.media[1] | image_url: width: 360 }} 360w,{%- endif -%}
-                    {%- if card_product.media[1].width >= 533 -%}{{ card_product.media[1] | image_url: width: 533 }} 533w,{%- endif -%}
-                    {%- if card_product.media[1].width >= 720 -%}{{ card_product.media[1] | image_url: width: 720 }} 720w,{%- endif -%}
-                    {%- if card_product.media[1].width >= 940 -%}{{ card_product.media[1] | image_url: width: 940 }} 940w,{%- endif -%}
-                    {%- if card_product.media[1].width >= 1066 -%}{{ card_product.media[1] | image_url: width: 1066 }} 1066w,{%- endif -%}
-                    {{ card_product.media[1] | image_url }} {{ card_product.media[1].width }}w
-                  "
-                  src="{{ card_product.media[1] | image_url: width: 533 }}"
+                  src="{{ media | image_url: width: 533 }}"
                   sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                  alt=""
+                  alt="{{ media.alt | escape }}"
                   class="motion-reduce"
                   loading="lazy"
-                  width="{{ card_product.media[1].width }}"
-                  height="{{ card_product.media[1].height }}"
+                  width="240"
+                  height="300"
                 >
-              {%- endif -%}
-            </div>
+              </div>
+            {% endfor %}
           </div>
+        </custom-card-gallery>
+      
         {%- endif -%}
         <div class="card__content">
           <div class="card__information">
@@ -303,7 +278,7 @@
                   id="{{ product_form_id }}-submit"
                   type="submit"
                   name="add"
-                  class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add animate-arrow{% endif %}"
+                  class="quick-add__submit button button--full-width{% if horizontal_quick_add %} card--horizontal__quick-add animate-arrow{% endif %}"
                   aria-haspopup="dialog"
                   aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                   data-product-url="{{ card_product.url }}"
@@ -345,6 +320,14 @@
               -%}
                       
             {%- else -%}
+            {%- render 'quick-buy',
+              product: product,
+              product_form_id: product_form_id,
+              section_id: section.id,
+              card_product_url:card_product.url,
+              section_id:section_id,
+              card_product_id:card_product.selected_or_first_available_variant.id              
+          -%}
               <product-form data-section-id="{{ section.id }}">
                 {%- form 'product',
                   card_product,
@@ -366,7 +349,7 @@
                     id="{{ product_form_id }}-submit"
                     type="submit"
                     name="add"
-                    class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
+                    class="quick-add__submit  button--full-width {% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
                     aria-haspopup="dialog"
                     aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ card_product.id }}"
                     aria-live="polite"
@@ -377,7 +360,11 @@
                   >
                     <span>
                       {%- if card_product.selected_or_first_available_variant.available -%}
-                        {{ 'products.product.add_to_cart' | t }}
+                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" class="icon icon-cart" fill="none" viewBox="0 0 18 19">
+                <path d="M3.09333 5.87954L16.2853 5.87945V5.87945C16.3948 5.8795 16.4836 5.96831 16.4836 6.07785V11.4909C16.4836 11.974 16.1363 12.389 15.6603 12.4714C11.3279 13.2209 9.49656 13.2033 5.25251 13.9258C4.68216 14.0229 4.14294 13.6285 4.0774 13.0537C3.77443 10.3963 2.99795 3.58502 2.88887 2.62142C2.75288 1.42015 0.905376 1.51528 0.283581 1.51478" stroke="currentColor"/>
+                <path d="M13.3143 16.8554C13.3143 17.6005 13.9183 18.2045 14.6634 18.2045C15.4085 18.2045 16.0125 17.6005 16.0125 16.8554C16.0125 16.1104 15.4085 15.5063 14.6634 15.5063C13.9183 15.5063 13.3143 16.1104 13.3143 16.8554Z" fill="currentColor"/>
+                <path d="M3.72831 16.8554C3.72831 17.6005 4.33233 18.2045 5.07741 18.2045C5.8225 18.2045 6.42651 17.6005 6.42651 16.8554C6.42651 16.1104 5.8225 15.5063 5.07741 15.5063C4.33233 15.5063 3.72831 16.1104 3.72831 16.8554Z" fill="currentColor"/>
+              </svg>
                       {%- else -%}
                         {{ 'products.product.sold_out' | t }}
                       {%- endif -%}
@@ -392,6 +379,7 @@
                   </button>
                 {%- endform -%}
               </product-form>
+              
             {%- endif -%}
           </div>
         {% elsif quick_add == 'bulk' %}
