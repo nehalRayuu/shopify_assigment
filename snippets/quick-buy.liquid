@@ -4,66 +4,62 @@
                    -->
 
 
- <div class="custom_quick_buy">
-   <custom-quick-buy>
-    <button type="button" class="quick_buy button" data-testid="Checkout-button" data-variant-id={{ card_product_id }}> 
-     Buy Now      
-    </button>
-  </custom-quick-buy>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    if (!customElements.get('custom-quick-buy')) {
-        class CustomQuickBuy extends HTMLElement {
-            constructor() {
-                super();
-                
-                this.quickBuyButton = this.querySelector('.quick_buy');
-                this.quickBuyButton.addEventListener('click', this.handleQuickBuy.bind(this));
-            }
-
-            async handleQuickBuy() {
-                const variantId = this.quickBuyButton.getAttribute('data-variant-id');
-                
-                try {
-                    // Clear the cart first
-                    await fetch(`${window.Shopify.routes.root}cart/clear.js`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-
-                    // Add the new item to the cart
-                    const formData = {
-                        items: [{
-                            id: variantId,
-                            quantity: 1
-                        }]
-                    };
-
-                    const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-
-                    if (response.ok) {
-                        // Redirect to checkout on success
-                        window.location.href = `${window.Shopify.routes.root}checkout`;
-                    } else {
-                        console.error('Failed to add item to cart:', response.statusText);
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            }
-        }
-
-        customElements.define('custom-quick-buy', CustomQuickBuy);
-    }
-});
-
-</script>
+                   <div>
+                    <div class="custom_quick_buy">
+                      <custom-quick-buy>
+                       <button type="button" class="quick_buy button" data-testid="Checkout-button" data-variant-id={{ card_product_id }}> 
+                        Buy Now      
+                       </button>
+                     </custom-quick-buy>
+                   </div>
+                   </div>
+                   <script>
+                   document.addEventListener('DOMContentLoaded', () => {
+                       if (!customElements.get('custom-quick-buy')) {
+                           class CustomQuickBuy extends HTMLElement {
+                               constructor() {
+                                   super();
+                                   
+                                   this.quickBuyButton = this.querySelector('.quick_buy');
+                                   this.quickBuyButton.addEventListener('click', this.handleQuickBuy.bind(this));
+                               }
+                               async handleQuickBuy() {
+                                   const variantId = this.quickBuyButton.getAttribute('data-variant-id');
+                                   console.log(variantId)
+                                   try {
+                                       // Clear the cart first
+                                       await fetch(`${window.Shopify.routes.root}cart/clear.js`, {
+                                           method: 'POST',
+                                           headers: {
+                                               'Content-Type': 'application/json'
+                                           }
+                                       });
+                                       // Add the new item to the cart
+                                       const formData = {
+                                           items: [{
+                                               id: variantId,
+                                               quantity: 1
+                                           }]
+                                       };
+                                       const response = await fetch(`${window.Shopify.routes.root}cart/add.js`, {
+                                           method: 'POST',
+                                           headers: {
+                                               'Content-Type': 'application/json'
+                                           },
+                                           body: JSON.stringify(formData)
+                                       });
+                                       if (response.ok) {
+                                           // Redirect to checkout on success
+                                           window.location.href = `${window.Shopify.routes.root}checkout`;
+                                       } else {
+                                           console.error('Failed to add item to cart:', response.statusText);
+                                       }
+                                   } catch (error) {
+                                       console.error('Error:', error);
+                                   }
+                               }
+                           }
+                           customElements.define('custom-quick-buy', CustomQuickBuy);
+                       }
+                   });
+                   </script>
