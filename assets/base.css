@@ -3586,7 +3586,7 @@ details-disclosure > details {
     border-radius: 50%;
     top: calc(50% - 11px);
 }
-svg.icon.icon-cart {
+.product-card-wrapper svg.icon.icon-cart {
   width: 20px;
   height: auto;
 
