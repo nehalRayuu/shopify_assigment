@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
   --alpha-button-background: 1;
   --alpha-button-border: 1;
@@ -3587,7 +3589,7 @@ details-disclosure > details {
     top: calc(50% - 11px);
 }
 .product-card-wrapper svg.icon.icon-cart {
-  width: 20px;
+  width: 30px;
   height: auto;
 
 }
@@ -3625,6 +3627,7 @@ details-disclosure > details {
 
 button.quick_buy.button {
   width: 100%;
+  min-height: 60px;
 }
 h2#verticalTitle {
   font-weight: 600;
@@ -3634,6 +3637,7 @@ h2#verticalTitle {
 .product_card_carousel img {
   width: 100%;
   height: auto;
+  border-radius: 16px;
 }
 .product_card_carousel .flickity-page-dots {
   bottom:18%;
@@ -3641,7 +3645,7 @@ h2#verticalTitle {
 .product_card_carousel .flickity-page-dots .dot.is-selected {
 
   opacity: 1;
-  width: 15%;
+  width: 24%;
   border-radius: 10px;
   background: #FFFFFF;
  
@@ -3657,7 +3661,7 @@ h2#verticalTitle {
   justify-content: center;
   align-items: center;
   position: absolute;
-  bottom: 17%;
+  bottom: 23%;
   width: 100%;
   gap: 10px;
 }
@@ -3677,4 +3681,7 @@ h2#verticalTitle {
 
 button.quick_buy.button {
   width: 100%;
+}
+.card__content .price__regular {
+  font-size: 25px;
 }
