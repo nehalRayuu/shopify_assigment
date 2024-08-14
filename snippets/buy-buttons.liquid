@@ -89,17 +89,25 @@
             %}
               disabled
             {% endif %}
-          >
-            <span>
+           >
+            <span class="add_to_cart_texts">
               {%- if product.selected_or_first_available_variant == nil -%}
                 {{ 'products.product.unavailable' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
                 {{ 'products.product.sold_out' | t }}
               {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
+                 {{'https://cdn.shopify.com/s/files/1/0812/3491/9716/files/Vector.png?v=1723645215' |  img_tag}}  
+                 <span>ADD TO BAG</span>
               {%- endif -%}
             </span>
+              
+
+
             {%- render 'loading-spinner' -%}
+          </button>
+          <p>Or Rent it for</p>
+          <button class="button button--full-width rent_it_button">
+            AED 70
           </button>
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}

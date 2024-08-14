@@ -3685,3 +3685,202 @@ button.quick_buy.button {
 .card__content .price__regular {
   font-size: 25px;
 }
+
+.product__media-wrapper slider-component {
+  max-height: 878px;
+  overflow-x: auto;
+  direction: rtl; 
+  scrollbar-width: thin;
+  scrollbar-color: #D9D9D9 transparent;
+}
+
+.product__media-wrapper slider-component::-webkit-scrollbar {
+  width: 7px;
+  height: 396px;
+}
+
+.product__media-wrapper slider-component::-webkit-scrollbar-thumb {
+  background-color: #D9D9D9;
+  border-radius: 20px;
+}
+
+.product__media-wrapper slider-component::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+/* Corrected: hide the up/down or left/right buttons */
+.product__media-wrapper slider-component::-webkit-scrollbar-button {
+  display: none;
+}
+span.product_tag {
+  background: #E6E6E6;
+  border-radius:20px;
+  padding: 5px 10px 5px 10px;
+  gap:10px;
+}
+
+.product_tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #393939;
+  font-size: 16px;
+}
+.product__tax.caption.rte {
+  display: none;
+}
+.price.price--on-sale .price-item--regular {
+  text-decoration: none;
+  color: #30BD75;
+  font-size: 25px;
+}
+
+.price.price--on-sale .price-item {
+  font-size: 25px;
+}
+span.add_to_cart_texts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+product-form .product-form__buttons .product-form__submit {
+  font-size: 20px;
+}
+button.button.button--full-width.rent_it_button {
+  background: #69D3FA;
+  font-weight: 600;
+}
+.product-form__buttons p {
+  text-align: center;
+  font-weight: 600;
+}
+.seller-card {
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.seller-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.seller-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.seller-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.seller-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 5px;
+}
+
+.seller-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.follow-button {
+  background-color: #00c853;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.seller-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating-value {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+ .seller_rating-star {
+  color: #ffd700;
+}
+
+.seller-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.view-link {
+  color: #ff4081;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+.related_products_header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+product-recommendations ul.grid.product-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ff4081 #f0f0f0; /* Scrollbar color for Firefox */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+product-recommendations ul.grid.product-grid::-webkit-scrollbar {
+  height: 8px; /* Height of the horizontal scrollbar */
+}
+
+product-recommendations ul.grid.product-grid::-webkit-scrollbar-thumb {
+  background-color: #ff4081; /* Scrollbar thumb color */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+  border: 2px solid transparent; /* Create space for rounded corners */
+  background-clip: padding-box; /* Ensures the thumb is clipped within the rounded corners */
+}
+
+product-recommendations ul.grid.product-grid::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* Scrollbar track color */
+  border-radius: 10px; /* Rounded corners for the scrollbar track */
+}
+
+/* Hide scrollbar buttons (left/right arrow buttons) */
+product-recommendations ul.grid.product-grid::-webkit-scrollbar-button {
+  display: none;
+}
+
+product-recommendations ul.grid.product-grid li {
+  flex: 0 0 auto;
+  margin-right: 10px; /* Spacing between the items */
+}

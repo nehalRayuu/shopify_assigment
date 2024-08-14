@@ -460,6 +460,32 @@
                   assign share_url = product.selected_variant.url | default: product.url | prepend: request.origin
                   render 'share-button', block: block, share_link: share_url
                 %}
+              {%  when 'sold_by' %}
+                <div class="seller-card">
+                  <div class="seller-header">
+                      <span>Sold by</span>
+                  </div>
+                  <div class="seller-info">
+                      {% if block.settings.seller_logo != blank%}
+                      {{ block.settings.seller_logo | image_url: width: 50 |  image_tag}}
+                      {% endif %}
+                      <div class="seller-details">
+                          <span class="seller-name">{{ block.settings.seller_name }}</span>
+                          <button class="follow-button">Follow</button>
+                      </div>
+                  </div>
+                  <div class="seller-rating">
+                      <span>Seller rating based on 100+ reviews</span>
+                      <div class="rating">
+                          <span class="rating-value">4.7</span>
+                          <span class="seller_rating-star">★</span>
+                      </div>
+                  </div>
+                  <div class="seller-footer">
+                      <span>106 Products Sold</span>
+                      <a href="#" class="view-link">View</a>
+                  </div>
+              </div>
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
@@ -726,6 +752,25 @@
   "tag": "section",
   "class": "section",
   "blocks": [
+      {
+       "type" : "sold_by",
+       "name": "Sold By",
+       "settings": [{
+           "type": "image_picker",
+           "id":"seller_logo",
+           "label": "seller_logo"
+       },
+       {
+        "type": "text",
+        "id": "seller_name",
+        "label":"Seller"
+       }
+      
+      ]
+      },
+
+
+
     {
       "type": "@app"
     },

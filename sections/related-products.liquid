@@ -28,9 +28,16 @@
     data-product-id="{{ product.id }}"
   >
     {% if recommendations.performed and recommendations.products_count > 0 %}
-      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
-        {{ section.settings.heading }}
-      </h2>
+      <div class="related_products_header">
+        <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.heading }}
+        </h2>
+        {% if section.settings.btn_link != blank %}
+          <a href="{{ section.settings.btn_link }}"><button class="button view_all" >{{ section.settings.btn_text }}</button></a>
+          
+        {% endif %}
+      </div>
+     
       <ul
         class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
         role="list"
@@ -73,6 +80,21 @@
       "id": "heading",
       "default": "t:sections.related-products.settings.paragraph__1.default",
       "label": "t:sections.related-products.settings.heading.label"
+    },
+    {
+     "type": "text",
+     "id": "releted_product_text",
+     "label":"Title"
+    },
+    {
+     "type": "url",
+     "id": "btn_link",
+     "label":"Button Link"
+    },
+    {
+     "type": "text",
+     "id": "btn_text",
+     "label":"Button Text"
     },
     {
       "type": "select",
